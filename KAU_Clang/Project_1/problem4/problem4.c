@@ -31,19 +31,3 @@ long long int binaryCount(int n) {
     
     return DP[n] = binaryCount(n - 1) + binaryCount(n - 2);
 }
-
-long long int makeBinary(int init, int n) {
-	if(n == 0)
-		return;
-	
-	int temp = 0b1 << n-1;
-
-	if(n == 1)
-		return 0b1;
-	if(n == 2)
-		return 0b10;
-	if(binaryArray[n] != 0)
-		return binaryArray[n];
-	
-	return binaryArray[n] = makeBinary(init, n);
-}
