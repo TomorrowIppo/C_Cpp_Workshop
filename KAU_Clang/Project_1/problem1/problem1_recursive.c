@@ -18,10 +18,10 @@ int fibo(int a, int b, int c, int n) {
 int main() {
     int a, b, c, N;
 
-    printf("제 1항(a), 제 2항(b), 제 3항(c), 항의 수(N)을 입력하시오: ");
+    printf("제 1항(a), 제 2항(b), 제 3항(c), 항의 수(N)을 입력하시오:\n");
     scanf("%d %d %d %d", &a, &b, &c, &N);
 
-    printf("%d\n", fibo(a, b, c, N));
+    printf("%d항: %d\n", N, fibo(a, b, c, N));
 
     return 0;
 }

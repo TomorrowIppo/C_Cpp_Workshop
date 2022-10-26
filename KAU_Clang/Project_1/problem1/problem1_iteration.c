@@ -2,22 +2,17 @@
 
 int main() 
 { 
-    int a, b, c, d, N;
+    int a, b, c, d, N, i;
 
-    printf("제 1항(a), 제 2항(b), 제 3항(c), 항의 수(N)을 입력하시오: ");
+    printf("제 1항(a), 제 2항(b), 제 3항(c), 항의 수(N)을 입력하시오:\n");
     scanf("%d %d %d %d", &a, &b, &c, &N);
-    d = c + a;
-
-    int i = 1;
-    printf("i : %2d) a : %4d, b : %4d, c : %4d, d : %4d\n", i, a, b, c, d);
-    for(i = 2; i <= N-3; i++) {
+    for(i = 1; i <= N-3; i++) {
+        d = c + a;
         a = b;
         b = c;
         c = d;
-        d = c + a;
-        printf("i : %2d) a : %4d, b : %4d, c : %4d, d : %4d\n", i, a, b, c, d);
     }
-    printf("%d\n", d);
+    printf("%d항: %d\n", N, d);
 
     return 0;
 }
