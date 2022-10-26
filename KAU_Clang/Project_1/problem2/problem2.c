@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define SET_EXIST 1
+#define SET_NOT_EXIST 0
+#define ALL_SAME -1
 
 void print_price(int coffee, int cake, int sandwich);
 int* get_setArray(int coffee, int cake, int sandwich);
 
 int main() {
     int coffee, cake, sandwich;
-    printf("ì£¼ë¬¸í•˜ê³ ì í•˜ëŠ” ì»¤í”¼, ì¼€ìŒ, ìƒŒë“œìœ„ì¹˜ì˜ ê°¯ìˆ˜ë¥¼ ê°ê° ì…ë ¥í•˜ì„¸ìš”:\n");
+    printf("ÁÖ¹®ÇÏ°íÀÚ ÇÏ´Â Ä¿ÇÇ, ÄÉŸå, »÷µåÀ§Ä¡ÀÇ °¹¼ö¸¦ °¢°¢ ÀÔ·ÂÇÏ¼¼¿ä:\n");
     scanf("%d %d %d", &coffee, &cake, &sandwich);
 
     print_price(coffee, cake, sandwich);
@@ -19,43 +22,69 @@ void print_price(int coffee, int cake, int sandwich) {
     int* set = get_setArray(coffee, cake, sandwich);
     int price[3] = {4000, 5000, 6000};
     int product_num[3] = {coffee, cake, sandwich};
-    char* product[3] = {"ì»¤í”¼", "ì¼€ìŒ", "ìƒŒë“œìœ„ì¹˜"};
+    char* product[3] = {"Ä¿ÇÇ", "ÄÉŸå", "»÷µåÀ§Ä¡"};
 
-    printf("í’ˆëª©\t  ê°€ê²©\t ê°¯ìˆ˜\t  ê¸ˆì•¡\t\n");
-    printf("ì„¸íŠ¸\t %5d\t %2d\t %5d\t\n", set[0], set[1], set[2]);
-    total += set[2];
-    
-    int i;
-    for(i=0; i<3; i++) {
-        if(i == set[3])
-            continue;
-        int temp_price = price[i] * (product_num[i] - set[1]);
-        printf("%s\t %5d\t %2d\t %5d\t\n", product[i], price[i], product_num[i] - set[1], temp_price);
-        total += temp_price;
+    printf("%-10s\t %s\t %s\t %s\t\n", "Ç°¸ñ", "°¡°İ", "°¹¼ö", "±İ¾×");
+
+    // set°¡ Á¸ÀçÇÒ °æ¿ì
+    if(set[4] == SET_EXIST) {
+        printf("%-8s\t %-5d\t %-2d\t %-5d\t\n", "¼¼Æ®", set[0], set[1], set[2]);
+        total += set[2];
     }
-    printf("--------------------------------\n");
-    printf("ì´ ì§€ë¶ˆ ê¸ˆì•¡           %7d\n", total);
-
+    
+    // ¼ö·®ÀÌ ¸ğµÎ °°Áö ¾ÊÀ» ¶§
+    int i;
+    if(set[4] != ALL_SAME)
+        for(i=0; i<3; i++) {
+            if(i == set[3] && set[4] != SET_NOT_EXIST)
+                continue;
+            int temp_price = price[i] * (product_num[i] - set[1]);
+            printf("%-8s\t %-5d\t %-2d\t %-5d\t\n", product[i], price[i], product_num[i] - set[1], temp_price);
+            total += temp_price;
+        }
+    printf("-------------------------------------------\n");
+    printf("ÃÑ ÁöºÒ ±İ¾×\t\t\t %-7d\n", total);
 }
 
 int* get_setArray(int coffee, int cake, int sandwich) {
     int temp[3] = {coffee, cake, sandwich};
-
+    int *set = (int*)malloc(5);    
     int min = temp[0];
+
+    // ¼ö·® Áß 0ÀÌ ÇÏ³ª¶óµµ ÀÖÀ» ¶§
+    if(min == 0) {
+        set[1] = 0;
+        set[4] = SET_NOT_EXIST;
+        return set;
+    }
+
     int i;
     int min_idx = 0;
     for(i=1; i<3; i++) {
+        // ¼ö·® Áß 0ÀÌ ÇÏ³ª¶óµµ ÀÖÀ» ¶§
+        if(temp[i] == 0) {
+            set[1] = 0;
+            set[4] = SET_NOT_EXIST;
+            return set;
+        }
+
         if(min > temp[i]) {
             min = temp[i];
             min_idx = i;
         }
     }
 
-    int *set = (int*)malloc(4);
-    set[0] = 12000;
-    set[1] = min;
-    set[2] = 12000*min;
-    set[3] = min_idx;
+    set[0] = 12000;         // ¼¼Æ®°¡°İ
+    set[1] = min;           // ÁÖ¹® ¼ö·® Á¦ÀÏ ÀûÀº ¼ö = ¼¼Æ® ¼ö
+    set[2] = 12000*min;     // ¼¼Æ® ÃÑ °¡°İ
+    set[3] = min_idx;       // ÁÖ¹® ¼ö·® Á¦ÀÏ ÀûÀº °ÍÀÇ ÀÎµ¦½º
+
+    // ¼¼Æ®·Î ¹­ÀÌ´ÂÁö ¿©ºÎ
+    // SET_EXIST : ¼¼Æ® Á¸Àç, SET_NOT_EXIST : ¼¼Æ® Á¸Àç x, ALL_SAME : ¼ö·®ÀÌ °°À½
+    if(temp[0] == temp[1] && temp[0] == temp[2])
+        set[4] = ALL_SAME;    // ¸ğµÎ ¼ö·®ÀÌ °°À» ¶§
+    else
+        set[4] = SET_EXIST;        
 
     return set;
 }

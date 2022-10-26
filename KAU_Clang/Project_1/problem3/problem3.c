@@ -4,7 +4,7 @@ void binaryFunc(int n);
 
 int main() {
     int input_num;
-    printf("ê°’ì„ ìž…ë ¥í•´ì£¼ì„¸ìš”: ");
+    printf("°ªÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä: ");
     scanf("%d", &input_num);
 
     binaryFunc(input_num);
@@ -18,11 +18,11 @@ void binaryFunc(int n) {
 
     for(int i=15; i>-1; i--)
 	{
-        if(find == 0 && ((target>>i)&0x01) == 0)
+        if(find == 0 && ((target>>i)&0b01) == 0)
 		{
 		}else{
 			find = 1;
-			printf("%d", ((target>>i)&0x01));
+			printf("%d", ((target>>i)&0b01));
 		}
 	}
     printf("\n");
