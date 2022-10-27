@@ -1,7 +1,7 @@
 # SW3106 : 프로그래밍 입문 Project #1
 
 ### 1-1. Problem1_FlowChart
-![alt text](./Project1_flowchart.drawio-2.png)
+![alt text](./Project1_flowchart.drawio.png)
 ### 1-2. Problem1_iteration
 |점화식|
 |:---|
@@ -276,14 +276,15 @@ int* get_setArray(int coffee, int cake, int sandwich) {
 ```
 
 ### 3. Problem3
-[Prob3 : Main Source Code]
 
-먼저 입력받은 정수를 16자리의 이진수로 표현하기 위해 0xFFFF와 &연산을 한다.
+먼저 입력받은 정수를 16자리의 이진수로 표현하기 위해 0xFFFF와 AND 연산을 한다.
 
 &연산을 마친 데이터를 target이라는 변수에 대입하고 맨 처음부터 하나씩 >> 시프트 연산을 한다. 만약 입력받은 데이터가 17이라는 정수라고 하자. 그럼 target이 의미하는 데이터는 0000000000010001일 것이다. 
 
 제일 앞에 있는 숫자는 target>>15로 시프트 연산한 뒤 0b01 즉, 10진수 기준 1과 &연산하여 해당 숫자가 0인지 1인지 판단한다.
 이 과정에서 기본적으로 0은 출력하지 않지만 처음으로 1이 나온 시점부터 이후의 0들은 의미가 있기에 find라는 변수를 만들어 처음으로 1이 나온 시점부턴 0도 같이 출력하도록 제어한다.
+
+[Prob3 : Main Source Code]
 ```c
 #include <stdio.h>
 
@@ -317,8 +318,99 @@ void binaryFunc(int n) {
 ```
 
 ### 4. Problem4
-[Prob4 : Main Source Code]
+4번 문제에서 나온 특징을 가지는 이진수를 간단히 <span style="color:green">**이친수**</span>라고 하자. 일단 문제에서 요구한 것은 다음과 같다
 
+1. 이친수의 개수를 출력하기
+2. 배열의 첫 원소는 n자리수, 그다음으로는 n자리수의 모든 이친수
+3. 모든 이친수 출력하기
+
+이것을 해결하기 전에 먼저 알아보아야 할 것이 있다.
+
+|n=1|n=2|n=3|n=4|n=5|n=6|
+|:---:|:---:|:---:|:---:|:---:|:---:|
+|1|10|100|1000|10000|100000|
+|||101|1001|10001|100001|
+||||1010|10010|100010|
+|||||10100|100100|
+|||||10101|100101|
+||||||101000|
+||||||101001|
+||||||101010|
+|**1**개|**1**개|**2**개|**3**개|**5**개|**8**개|
+
+여기서 우리는 이친수의 갯수가 피보나치 수열과 같다는 것을 알 수 있다. 그렇기 때문에 이친수의 갯수 점화식은 아래와 같다.
+
+|점화식|
+|:---|
+F(n+2) = F(n+1) + Fn (n=1, 2, 3 ...)
+
+이제 우리가 알아야 할 것은 이친수의 규칙이다.
+위의 이친수 표를 잘 보면 알 수 있지만 n자리수의 이친수는 다음과 같은 과정을 거치면 만들 수 있다.
+
+1. 1 << (n-1)을 한 기본틀
+2. n-1자리 이친수들과 1 << (n-2)를 XOR 연산한 결과를 모은다.
+3. 1 << (n-1)을 한 기본틀에 2번 결과들과 (n-2)자리 이친수들을 더한다.
+
+n=5일 때를 예로 들어보자.
+
+|n=5|1 << (5-1)|
+|:---:|:---:|
+|10000|10000|
+|10001|
+|10010|
+|10100|
+|10101|
+
+|n=4|^1000|
+|:---:|:---:|
+|1000|0000|
+|1001|0001|
+|1010|0010|
+
+|n=3|
+|:---:|
+|100|
+|101|
+
+이를 소스코드로 구현하면 다음과 같다.
+
+[Prob4 : Source Code #1]
+```c
+#define MAX 1000
+int binaryArray[MAX][MAX] = {0};
+
+binaryArray[0][0] = 0b1;
+binaryArray[1][0] = 0b10;
+
+for(int i=2; i<n; i++) {
+    int root = 1 << i;
+    int idx_1 = getMaxIdx(binaryArray[i-1]);
+    int idx_2 = getMaxIdx(binaryArray[i-2]);
+    int new_idx = getMaxIdx(binaryArray[i]);
+
+    for(int j=0; j<idx_1; j++) 
+        binaryArray[i][j] = root + (binaryArray[i-1][j] ^ (1 << (i-1)));
+    
+    new_idx = getMaxIdx(binaryArray[i]);
+
+    for(int j=0; j<idx_2; j++) 
+        binaryArray[i][j+new_idx] = root + binaryArray[i-2][j];
+}
+
+int getMaxIdx(int* arr) {
+    int idx = 0;
+    for(int i=0; i<MAX; i++)
+        if(arr[i] == 0 && arr[i+1] == 0) {
+            idx = i;
+            break;
+        }
+    return idx;
+}
+```
+
+이차원 배열을 만들어 1 ~ n(입력받은 수)까지의 이친수를 저장한다. 이때 getMaxIdx() 함수의 역할은 n자리 이친수 일차원 배열 기준 이친수가 덜 채워진 부분을 찾아내기 위함이고 이를 이용하여 반복을 돌 때 덜 채워진 부분부터 이친수를 채울 수 있도록 한다.
+
+[Prob4 : Main Source Code]
 ```c
 #include <stdio.h>
 #define MAX 1000
@@ -362,7 +454,7 @@ int main() {
     
     
     printf("%d자리 갯수: %lld\n", n, pinary_cnt);
-    for(int i=1; i<getMaxIdx(binaryArray[n-1]); i++)
+    for(int i=1; i<=getMaxIdx(binaryArray[n-1]); i++)
     {	if(i % 10 == 0)
             printf("\n"); 
         binaryFunc(MyFinalArray[i]);

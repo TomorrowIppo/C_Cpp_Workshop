@@ -40,7 +40,7 @@ int main() {
     
     
     printf("%d자리 갯수: %lld\n", n, pinary_cnt);
-    for(int i=1; i<getMaxIdx(binaryArray[n-1]); i++)
+    for(int i=1; i<=getMaxIdx(binaryArray[n-1]); i++)
     {	if(i % 10 == 0)
 			printf("\n"); 
         binaryFunc(MyFinalArray[i]);
