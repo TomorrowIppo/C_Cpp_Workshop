@@ -1,18 +1,28 @@
 #include <stdio.h>
 
-int main() 
-{ 
-    int a, b, c, d, N, i;
+int main(void)
+{
+    /* 변수 선언 부분: 수정하지 마세요 */
+    int a, b, c, n; // 제 1항, 제 2항, 제 3항, 항의 수
+    int output;  // 출력하고자 하는 값(제 n항)을 output 변수에 저장하세요.
+    /* ------------------------------ */
 
-    printf("제 1항(a), 제 2항(b), 제 3항(c), 항의 수(N)을 입력하시오:\n");
-    scanf("%d %d %d %d", &a, &b, &c, &N);
-    for(i = 1; i <= N-3; i++) {
-        d = c + a;
+    /* 입력 부분: 수정하지 마세요 */
+    printf("제 1항(a), 제 2항(b), 제 3항(c), 항의 수(N)을 입력하세요:\n");
+    scanf("%d%d%d%d",&a,&b,&c,&n);
+    /* ---------------------------*/
+    for(int i = 1; i <= n-3; i++) {
+        output = c + a;
         a = b;
         b = c;
-        c = d;
+        c = output;
     }
-    printf("%d항: %d\n", N, d);
+
+
+
+    /* 출력 부분: 수정하지 마세요 */  
+    printf("%d항: %d",n,output);
+	/* -------------------------- */ 
 
     return 0;
 }
