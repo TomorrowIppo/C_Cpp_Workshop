@@ -34,18 +34,12 @@ int main() {
 
     // 문제 조건에 맞는 배열 만들기
 	long long int pinary_cnt = binaryCount(n);
-	MyFinalArray[0] = n;
-	for(int i=1; i<=pinary_cnt; i++)
+	for(int i=0; i<=pinary_cnt; i++)
 		MyFinalArray[i] = binaryArray[n-1][i-1];
     
-    
-    printf("%d자리 갯수: %lld\n", n, pinary_cnt);
-    for(int i=1; i<=getMaxIdx(binaryArray[n-1]); i++) {	
-        if(i % 10 == 0)
-			printf("\n"); 
-        binaryFunc(MyFinalArray[i]);
-    }
-    printf("\n");
+    int input;
+    scanf("%d", &input);
+    binaryFunc(MyFinalArray[input]);
 
     return 0;
 }

@@ -1,23 +1,18 @@
 #include <stdio.h>
 #define MAX 1000
 
-int MyFinalArray[MAX] = {0};
 int binaryArray[MAX][MAX] = {0};
 int DP[MAX] = {0};
 void getBinary(int n);
 int getMaxIdx(int* arr);
 void binaryFunc(int n);
-long long int binaryCount(int n);
+int binaryCount(int n);
 
 int main() {
-    int n;
-    printf("N을 입력하세요:\n");
-    scanf("%d", &n);
-
     binaryArray[0][0] = 0b1;
     binaryArray[1][0] = 0b10;
 
-    for(int i=2; i<n; i++) {
+    for(int i=2; i<MAX; i++) {
         int root = 1 << i;
         int idx_1 = getMaxIdx(binaryArray[i-1]);
         int idx_2 = getMaxIdx(binaryArray[i-2]);
@@ -32,18 +27,24 @@ int main() {
             binaryArray[i][j+new_idx] = root + binaryArray[i-2][j];
     }
 
-    // 문제 조건에 맞는 배열 만들기
-	long long int pinary_cnt = binaryCount(n);
-	MyFinalArray[0] = n;
-	for(int i=1; i<=pinary_cnt; i++)
-		MyFinalArray[i] = binaryArray[n-1][i-1];
-    
-    
-    printf("%d자리 갯수: %lld\n", n, pinary_cnt);
-    for(int i=1; i<=getMaxIdx(binaryArray[n-1]); i++) {	
-        if(i % 10 == 0)
-			printf("\n"); 
-        binaryFunc(MyFinalArray[i]);
+    int cnt = 0;
+    int loop = 0;
+    int input;
+    scanf("%d", &input);
+
+    // 찾자
+    int i=0;
+	while(loop != 1 && i < MAX) {
+        for(int j=0; j<MAX; j++) {
+            if (binaryArray[i][j] == 0)
+                break;
+            cnt++;
+            if (cnt == input) {
+                binaryFunc(binaryArray[i][j]);
+                loop = 1;
+            }
+        }
+        i++;
     }
     printf("\n");
 
@@ -61,11 +62,11 @@ int getMaxIdx(int* arr) {
 }
 
 void binaryFunc(int n) {
-    unsigned short int target = (n&0xFFFF);
+    unsigned short int target = (n&0xFFFFFFFF);
     char find = 0;
 	int str_idx = 0;
 
-	for(int i=15; i>-1; i--) {
+	for(int i=32; i>-1; i--) {
 		if(find == 0 && ((target>>i)&0x01) == 0)
 		{
 			//printf(" x");
@@ -77,7 +78,7 @@ void binaryFunc(int n) {
     printf(" ");
 }
 
-long long int binaryCount(int n) {
+int binaryCount(int n) {
     if(n == 1) 
         return 1;
     if(n == 2)

@@ -9,7 +9,7 @@ int* get_setArray(int coffee, int cake, int sandwich);
 
 int main() {
     int coffee, cake, sandwich;
-    printf("주문하고자 하는 커피, 케잌, 샌드위치의 갯수를 각각 입력하세요:\n");
+    printf("???????? ??? Ŀ??, ???, ????????? ?????? ???? ????????:\n");
     scanf("%d %d %d", &coffee, &cake, &sandwich);
 
     print_price(coffee, cake, sandwich);
@@ -22,17 +22,17 @@ void print_price(int coffee, int cake, int sandwich) {
     int* set = get_setArray(coffee, cake, sandwich);
     int price[3] = {4000, 5000, 6000};
     int product_num[3] = {coffee, cake, sandwich};
-    char* product[3] = {"커피", "케잌", "샌드위치"};
+    char* product[3] = {"Ŀ??", "???", "???????"};
 
-    printf("%-10s\t %s\t %s\t %s\t\n", "품목", "가격", "갯수", "금액");
+    printf("%-10s\t %s\t %s\t %s\t\n", "???", "????", "????", "???");
 
-    // set가 존재할 경우
+    // set?? ?????? ???
     if(set[4] == SET_EXIST) {
-        printf("%-8s\t %-5d\t %-2d\t %-5d\t\n", "세트", set[0], set[1], set[2]);
+        printf("%-8s\t %-5d\t %-2d\t %-5d\t\n", "???", set[0], set[1], set[2]);
         total += set[2];
     }
     
-    // 수량이 모두 같지 않을 때
+    // ?????? ??? ???? ???? ??
     int i;
     if(set[4] != ALL_SAME)
         for(i=0; i<3; i++) {
@@ -43,7 +43,7 @@ void print_price(int coffee, int cake, int sandwich) {
             total += temp_price;
         }
     printf("-------------------------------------------\n");
-    printf("총 지불 금액\t\t\t %-7d\n", total);
+    printf("?? ???? ???\t\t\t %-7d\n", total);
 }
 
 int* get_setArray(int coffee, int cake, int sandwich) {
@@ -51,7 +51,7 @@ int* get_setArray(int coffee, int cake, int sandwich) {
     int *set = (int*)malloc(5);    
     int min = temp[0];
 
-    // 수량 중 0이 하나라도 있을 때
+    // ???? ?? 0?? ????? ???? ??
     if(min == 0) {
         set[1] = 0;
         set[4] = SET_NOT_EXIST;
@@ -61,7 +61,7 @@ int* get_setArray(int coffee, int cake, int sandwich) {
     int i;
     int min_idx = 0;
     for(i=1; i<3; i++) {
-        // 수량 중 0이 하나라도 있을 때
+        // ???? ?? 0?? ????? ???? ??
         if(temp[i] == 0) {
             set[1] = 0;
             set[4] = SET_NOT_EXIST;
@@ -74,15 +74,15 @@ int* get_setArray(int coffee, int cake, int sandwich) {
         }
     }
 
-    set[0] = 12000;         // 세트가격
-    set[1] = min;           // 주문 수량 제일 적은 수 = 세트 수
-    set[2] = 12000*min;     // 세트 총 가격
-    set[3] = min_idx;       // 주문 수량 제일 적은 것의 인덱스
+    set[0] = 12000;         // ???????
+    set[1] = min;           // ??? ???? ???? ???? ?? = ??? ??
+    set[2] = 12000*min;     // ??? ?? ????
+    set[3] = min_idx;       // ??? ???? ???? ???? ???? ?ε???
 
-    // 세트로 묶이는지 여부
-    // SET_EXIST : 세트 존재, SET_NOT_EXIST : 세트 존재 x, ALL_SAME : 수량이 같음
+    // ????? ??????? ????
+    // SET_EXIST : ??? ????, SET_NOT_EXIST : ??? ???? x, ALL_SAME : ?????? ????
     if(temp[0] == temp[1] && temp[0] == temp[2])
-        set[4] = ALL_SAME;    // 모두 수량이 같을 때
+        set[4] = ALL_SAME;    // ??? ?????? ???? ??
     else
         set[4] = SET_EXIST;        
 
