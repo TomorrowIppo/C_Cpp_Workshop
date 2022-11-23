@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define MAX 90
+#define MAX 91
 
 long long dp[MAX][2];
 long long countdp[MAX] = {1, 1, };
@@ -7,6 +7,9 @@ long long countdp[MAX] = {1, 1, };
 long long count_pinary(int k);
 
 int main() {
+    dp[1][0] = 0;
+    dp[1][1] = 1;
+
     int k;
     scanf("%d", &k);
 
