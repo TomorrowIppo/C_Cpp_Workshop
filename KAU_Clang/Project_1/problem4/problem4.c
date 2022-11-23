@@ -32,6 +32,13 @@ int main() {
             binaryArray[i][j+new_idx] = root + binaryArray[i-2][j];
     }
 
+    for(int i=0; i<binaryCount(n); i++) {
+        for(int j=0; j<n; j++) {
+            printf("%4d ", binaryArray[j][i]);
+        }
+        printf("\n");
+    }
+
     // 문제 조건에 맞는 배열 만들기
 	long long int pinary_cnt = binaryCount(n);
 	MyFinalArray[0] = n;
@@ -41,8 +48,8 @@ int main() {
     
     printf("%d자리 갯수: %lld\n", n, pinary_cnt);
     for(int i=1; i<=getMaxIdx(binaryArray[n-1]); i++) {	
-        if(i % 10 == 0)
-			printf("\n"); 
+        if(i % 10 == 0 && i != 0)
+			printf("\n");
         binaryFunc(MyFinalArray[i]);
     }
     printf("\n");
