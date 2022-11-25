@@ -7,17 +7,25 @@ int DP[MAX] = {0};
 void getBinary(int n);
 int getMaxIdx(int* arr);
 void binaryFunc(int n);
-long long int binaryCount(int n);
+int binaryCount(int n);
 
 int main() {
-    int n;
+    /* 변수 선언 부분: 수정하지 마세요 */
+	int N; // N자리 이진수
+    /* ------------------------------- */
+
+    /* 입력 부분: 수정하지 마세요 */
     printf("N을 입력하세요:\n");
-    scanf("%d", &n);
+    scanf("%d",&N);
+    /* -------------------------- */
+
+    //출력 형식은 printf(“%d자리 갯수: %d\n”, 해당하는 변수, 해당하는 변수); 를 이용해주세요.
+    // 함수 내 출력 또는 main에서 출력 등 자유롭게 작성 가능
 
     binaryArray[0][0] = 0b1;
     binaryArray[1][0] = 0b10;
 
-    for(int i=2; i<n; i++) {
+    for(int i=2; i<N; i++) {
         int root = 1 << i;
         int idx_1 = getMaxIdx(binaryArray[i-1]);
         int idx_2 = getMaxIdx(binaryArray[i-2]);
@@ -32,25 +40,18 @@ int main() {
             binaryArray[i][j+new_idx] = root + binaryArray[i-2][j];
     }
 
-    for(int i=0; i<binaryCount(n); i++) {
-        for(int j=0; j<n; j++) {
-            printf("%4d ", binaryArray[j][i]);
-        }
-        printf("\n");
-    }
-
     // 문제 조건에 맞는 배열 만들기
-	long long int pinary_cnt = binaryCount(n);
-	MyFinalArray[0] = n;
+	int pinary_cnt = binaryCount(N);
+	MyFinalArray[0] = pinary_cnt;
 	for(int i=1; i<=pinary_cnt; i++)
-		MyFinalArray[i] = binaryArray[n-1][i-1];
+		MyFinalArray[i] = binaryArray[N-1][i-1];
     
     
-    printf("%d자리 갯수: %lld\n", n, pinary_cnt);
-    for(int i=1; i<=getMaxIdx(binaryArray[n-1]); i++) {	
+    printf("%d자리 갯수: %d\n", N, MyFinalArray[0]);
+    for(int i=0; i<getMaxIdx(binaryArray[N-1]); i++) {	        
         if(i % 10 == 0 && i != 0)
-			printf("\n");
-        binaryFunc(MyFinalArray[i]);
+			printf("\n"); 
+        binaryFunc(MyFinalArray[i+1]);
     }
     printf("\n");
 
@@ -84,7 +85,7 @@ void binaryFunc(int n) {
     printf(" ");
 }
 
-long long int binaryCount(int n) {
+int binaryCount(int n) {
     if(n == 1) 
         return 1;
     if(n == 2)
