@@ -11,13 +11,13 @@ int main(void)
     printf("제 1항(a), 제 2항(b), 제 3항(c), 항의 수(N)을 입력하세요:\n");
     scanf("%d%d%d%d",&a,&b,&c,&n);
     /* ---------------------------*/
-    for(int i = 1; i <= n-3; i++) {
+    int i;
+    for(i = 1; i <= n-3; i++) {
         output = c + a;
         a = b;
         b = c;
         c = output;
     }
-
 
 
     /* 출력 부분: 수정하지 마세요 */  

@@ -1,90 +1,57 @@
 #include <stdio.h>
-#include <stdlib.h>
-#define SET_EXIST 1
-#define SET_NOT_EXIST 0
-#define ALL_SAME -1
 
-void print_price(int coffee, int cake, int sandwich);
-int* get_setArray(int coffee, int cake, int sandwich);
+int main(void)
+{
+    /* ?? ?? ??: ???? ??? */
+    int price_coffee = 4000; // ??, ??, ???? ??
+    int price_cake = 5000;
+    int price_sandwich = 6000;
+    int price_set = 12000;
+    int num_coffee; // ??, ??, ???? ?? ??
+    int num_cake;
+    int num_sandwich;
+    int num_set;
+    int total_price; // ?? ??
+    /* ------------------------------ */
 
-int main() {
-    int coffee, cake, sandwich;
-    printf("???????? ??? ии??, ???, ????????? ?????? ???? ????????:\n");
-    scanf("%d %d %d", &coffee, &cake, &sandwich);
+    /* ?? ??: ???? ??? */
+    printf("????? ?? ??, ??, ????? ??? ?? ?????:\n");
+    scanf("%d%d%d",&num_coffee,&num_cake,&num_sandwich);
+    /* -------------------------- */
 
-    print_price(coffee, cake, sandwich);
-
-    return 0;
-}
-
-void print_price(int coffee, int cake, int sandwich) {
-    int total = 0;
-    int* set = get_setArray(coffee, cake, sandwich);
-    int price[3] = {4000, 5000, 6000};
-    int product_num[3] = {coffee, cake, sandwich};
-    char* product[3] = {"ии??", "???", "???????"};
-
-    printf("%-10s\t %s\t %s\t %s\t\n", "???", "????", "????", "???");
-
-    // set?? ?????? ???
-    if(set[4] == SET_EXIST) {
-        printf("%-8s\t %-5d\t %-2d\t %-5d\t\n", "???", set[0], set[1], set[2]);
-        total += set[2];
-    }
-    
-    // ?????? ??? ???? ???? ??
+    int temp[3] = {num_coffee, num_cake, num_sandwich};
     int i;
-    if(set[4] != ALL_SAME)
-        for(i=0; i<3; i++) {
-            if(i == set[3] && set[4] != SET_NOT_EXIST)
-                continue;
-            int temp_price = price[i] * (product_num[i] - set[1]);
-            printf("%-8s\t %-5d\t %-2d\t %-5d\t\n", product[i], price[i], product_num[i] - set[1], temp_price);
-            total += temp_price;
-        }
-    printf("-------------------------------------------\n");
-    printf("?? ???? ???\t\t\t %-7d\n", total);
-}
-
-int* get_setArray(int coffee, int cake, int sandwich) {
-    int temp[3] = {coffee, cake, sandwich};
-    int *set = (int*)malloc(5);    
     int min = temp[0];
 
-    // ???? ?? 0?? ????? ???? ??
-    if(min == 0) {
-        set[1] = 0;
-        set[4] = SET_NOT_EXIST;
-        return set;
-    }
-
-    int i;
-    int min_idx = 0;
-    for(i=1; i<3; i++) {
-        // ???? ?? 0?? ????? ???? ??
-        if(temp[i] == 0) {
-            set[1] = 0;
-            set[4] = SET_NOT_EXIST;
-            return set;
-        }
-
-        if(min > temp[i]) {
+    // ?? ?? ? 0? ??? min? 0? ??? ???? ???? ????,
+    // ???? min? ??? 0? ?? ???? ?? ??.
+    for(i=0; i<3; i++) {
+        if(min > temp[i])
             min = temp[i];
-            min_idx = i;
-        }
+
+        if (temp[i] == 0)
+            break;
     }
 
-    set[0] = 12000;         // ???????
-    set[1] = min;           // ??? ???? ???? ???? ?? = ??? ??
-    set[2] = 12000*min;     // ??? ?? ????
-    set[3] = min_idx;       // ??? ???? ???? ???? ???? ?ех???
+    num_set = min;
+    num_coffee -= num_set;
+    num_cake -= num_set;
+    num_sandwich -= num_set;
+    total_price = (price_set * num_set) + (price_coffee * num_coffee) + (price_cake * num_cake) + (price_sandwich * num_sandwich);
 
-    // ????? ??????? ????
-    // SET_EXIST : ??? ????, SET_NOT_EXIST : ??? ???? x, ALL_SAME : ?????? ????
-    if(temp[0] == temp[1] && temp[0] == temp[2])
-        set[4] = ALL_SAME;    // ??? ?????? ???? ??
-    else
-        set[4] = SET_EXIST;        
+    /* ?? ??: ???? ??? */
+    printf("??      ??  ??   ??\n");
+    if (num_set > 0)
+        printf("?? %9d %4d %7d\n", price_set, num_set, price_set * num_set);
+    if (num_coffee > 0)
+        printf("?? %9d %4d %7d\n", price_coffee, num_coffee, price_coffee * num_coffee);
+    if (num_cake > 0)
+        printf("?? %9d %4d %7d\n", price_cake, num_cake, price_cake * num_cake);
+    if (num_sandwich > 0)
+        printf("???? %5d %4d %7d\n", price_sandwich, num_sandwich, price_sandwich * num_sandwich);
+    printf("----------------------------\n");
+    printf("? ?? ?? %14d", total_price);
+    /* ------------------------- */
 
-    return set;
+    return 0;
 }

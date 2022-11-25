@@ -1,15 +1,24 @@
 #include <stdio.h>
-
 void binaryFunc(int n);
 
-int main() {
-    int input_num;
-    printf("값을 입력해주세요: ");
-    scanf("%d", &input_num);
+int main()
+{
+    /* 변수 선언 부분: 수정하지 마세요 */
+	int n; // 이진수로 변환하고자 하는 십진수
+    /* ------------------------------- */
 
-    binaryFunc(input_num);
+    /* 입력 부분: 수정하지 마세요 */
+    printf("2진수로 출력하고자 하는 수를 입력하세요:\n");
+    scanf("%d",&n);
+    /* -------------------------- */
 
-    return 0;
+
+    /* 출력 부분: 수정하지 마세요 */
+    printf("이진수 출력: ");
+	binaryFunc(n);
+    /* -------------------------- */
+	
+  return 0;
 }
 
 void binaryFunc(int n) {
