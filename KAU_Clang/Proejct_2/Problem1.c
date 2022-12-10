@@ -79,10 +79,11 @@ void print_student_list(STUDENT* s)
 /* -------------------------- */
 void find_student(STUDENT *s) {
     char input[BUF_SIZE];
-    int is_checked = 0;
+    int is_checked;
 
     STUDENT *sour;
     while(1) {
+        is_checked = 0;
         printf("\n찾으려는 학생의 이름 또는 수강과목을 입력하세요(종료는 exit): ");
         gets(input);
 
@@ -119,8 +120,8 @@ void print_presentation_list(STUDENT *s) {
     int is_exist = 0;
 
     while(1) {
-        size = sizeof(list) / sizeof(STUDENT);
-        printf("size : %d\n", size);
+        is_exist = 0;
+        printf("size : %d\n", present_num);
 
         printf("\n발표리스트에 추가하려면 1번, 삭제하려면 2번, 종료하려면 3번을 누르세요: ");
         scanf("%d", &input);
@@ -137,16 +138,19 @@ void print_presentation_list(STUDENT *s) {
                 continue;
             } 
 
-            for(int i=0; i<array_size; i++) {
+            for(int i=0; i<present_num; i++) {
                 if(comapre(list[i], *(s+(num-1))) == 1) {
-                    // is_exist = 1;
-                    // break;
+                    is_exist = 1;
                     printf("이미 발표리스트에 있는 학생입니다.\n");
-                    continue;
+                    break;
                 }
             }
 
-            list[size] = *(s+(num-1));
+            if(is_exist == 1) {
+                continue;
+            }
+
+            list[present_num] = *(s+(num-1));
             present_num++;
 
             // if(is_exist == 1) {
@@ -161,7 +165,7 @@ void print_presentation_list(STUDENT *s) {
             printf("발표리스트에서 삭제할 학생 번호를 입력하세요: ");
             scanf("%d", &num);
 
-            for(int i=0; i<array_size; i++) {
+            for(int i=0; i<present_num; i++) {
                 if(comapre(list[i], *(s+(num-1))) == 1) {
                     is_exist = 1;
                     idx = i;
@@ -170,7 +174,7 @@ void print_presentation_list(STUDENT *s) {
             }
 
             if(is_exist == 1) {
-                for(int i=idx; i<array_size-1; i++) {
+                for(int i=idx; i<present_num-1; i++) {
                     memcpy(&list[i], &list[i+1], sizeof(STUDENT));
                 }
             } else {
