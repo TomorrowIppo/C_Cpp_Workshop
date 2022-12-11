@@ -26,14 +26,6 @@ int comapre(STUDENT *s1, STUDENT *s2) {
     return 0;
 }
 
-void swap_point(STUDENT *point1, STUDENT *point2)
-{
-    STUDENT temp;
-    temp = *point1;
-    *point1 = *point2;
-    *point2 = temp;
-}
-
 void delete(STUDENT *s, int idx) {
     for(int i=idx; i<array_size; i++) {
         // memcpy(&s[i], &s[i+1], sizeof(STUDENT));
