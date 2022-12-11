@@ -13,11 +13,11 @@ int main() {
     }
 
     // 확인용
-    // for(int i=1; i<MAX; i++) {
-    //     printf("%4d ", dp[i]);
-    //     if(i != 0 && i % 10 == 0)
-    //         printf("\n");
-    // }
+    for(int i=1; i<MAX; i++) {
+        printf("%4d ", dp[i]);
+        if(i != 0 && i % 10 == 0)
+            printf("\n");
+    }
 
     for(int i=0; i<t; i++) {
         scanf("%d", &k);
