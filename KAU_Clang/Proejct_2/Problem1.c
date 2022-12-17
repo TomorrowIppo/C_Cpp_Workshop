@@ -14,7 +14,7 @@ typedef struct STUDENT {
     char class_name[BUF_SIZE];
 } STUDENT;
 
-// í•™ìƒ êµ¬ì¡°ì²´ ë¹„êµ í•¨ìˆ˜
+// ÇĞ»ı ±¸Á¶Ã¼ ºñ±³ ÇÔ¼ö
 int comapre(STUDENT *s1, STUDENT *s2) {
     if(strcmp(s1->name, s2->name) == 0 &&
     strcmp(s1->ID, s2->ID) == 0 &&
@@ -33,24 +33,24 @@ void delete(STUDENT *s, int idx) {
     }
 }
 
-/* ì¶œë ¥ ë¶€ë¶„: ìˆ˜ì •í•˜ì§€ ë§ˆì„¸ìš” */
+/* Ãâ·Â ºÎºĞ: ¼öÁ¤ÇÏÁö ¸¶¼¼¿ä */
 void print_student(const STUDENT *s){
     printf("%-9s %-5s %5d %10s\n", s->name, s->ID, s->semester, s->class_name);
 }
 /* -------------------------- */
 
-/* print_student_list í•¨ìˆ˜ êµ¬í˜„ */
-// ë°˜ë“œì‹œ ë‹¤ìŒ ì½”ë“œ ì‚¬ìš©í•´ì„œ ì¶œë ¥í•˜ì„¸ìš”. 
-// ê°€ì¥ ìœ—ì¤„: printf("\n%8s  %-11s %-5s %10s %14s\n", "ë²ˆí˜¸", "ì´ë¦„", "í•™ë²ˆ", "í•™ê¸°", "ìˆ˜ê°•ê³¼ëª©"); ì´ìš©í•˜ì—¬ ì¶œë ¥
-// í•™ìƒ ë²ˆí˜¸: printf("%3dë²ˆ: ",ë³€ìˆ˜); ì´ìš©í•˜ì—¬ ì¶œë ¥
-// í•™ìƒ ì •ë³´: print_student í•¨ìˆ˜ ì´ìš©í•˜ì—¬ ì¶œë ¥ 
+/* print_student_list ÇÔ¼ö ±¸Çö */
+// ¹İµå½Ã ´ÙÀ½ ÄÚµå »ç¿ëÇØ¼­ Ãâ·ÂÇÏ¼¼¿ä. 
+// °¡Àå À­ÁÙ: printf("\n%8s  %-11s %-5s %10s %14s\n", "¹øÈ£", "ÀÌ¸§", "ÇĞ¹ø", "ÇĞ±â", "¼ö°­°ú¸ñ"); ÀÌ¿ëÇÏ¿© Ãâ·Â
+// ÇĞ»ı ¹øÈ£: printf("%3d¹ø: ",º¯¼ö); ÀÌ¿ëÇÏ¿© Ãâ·Â
+// ÇĞ»ı Á¤º¸: print_student ÇÔ¼ö ÀÌ¿ëÇÏ¿© Ãâ·Â 
 /* -------------------------- */
 void print_student_list(STUDENT* s)
 {    
-    printf("\n%8s  %-11s %-5s %10s %14s\n", "ë²ˆí˜¸", "ì´ë¦„", "í•™ë²ˆ", "í•™ê¸°", "ìˆ˜ê°•ê³¼ëª©");
+    printf("\n%8s  %-11s %-5s %10s %14s\n", "¹øÈ£", "ÀÌ¸§", "ÇĞ¹ø", "ÇĞ±â", "¼ö°­°ú¸ñ");
     STUDENT temp;
     
-    // ì •ë ¬
+    // Á¤·Ä
     for (int i = array_size; i > 1; i--)
     {
         for (int j = 1; j < i; j++)
@@ -64,17 +64,17 @@ void print_student_list(STUDENT* s)
         }
     }
 
-    // ì¶œë ¥
+    // Ãâ·Â
     for(int i=0; i<array_size; i++) {
-        printf("%3dë²ˆ: ", i+1);
+        printf("%3d¹ø: ", i+1);
         print_student(&s[i]);
     }
 }
 
-/* find_student í•¨ìˆ˜ êµ¬í˜„ */
-// ë°˜ë“œì‹œ ë‹¤ìŒ ì½”ë“œ ì‚¬ìš©í•´ì„œ ì¶œë ¥í•˜ì„¸ìš”.
-// í•™ìƒ ë²ˆí˜¸: printf("%3dë²ˆ: ",ë³€ìˆ˜); ì´ìš©í•˜ì—¬ ì¶œë ¥
-// í•™ìƒ ì •ë³´: print_student í•¨ìˆ˜ ì´ìš©í•˜ì—¬ ì¶œë ¥
+/* find_student ÇÔ¼ö ±¸Çö */
+// ¹İµå½Ã ´ÙÀ½ ÄÚµå »ç¿ëÇØ¼­ Ãâ·ÂÇÏ¼¼¿ä.
+// ÇĞ»ı ¹øÈ£: printf("%3d¹ø: ",º¯¼ö); ÀÌ¿ëÇÏ¿© Ãâ·Â
+// ÇĞ»ı Á¤º¸: print_student ÇÔ¼ö ÀÌ¿ëÇÏ¿© Ãâ·Â
 /* -------------------------- */
 void find_student(STUDENT *s) {
     char input[BUF_SIZE];
@@ -83,7 +83,7 @@ void find_student(STUDENT *s) {
     STUDENT *sour;
     while(1) {
         is_checked = 0;
-        printf("\nì°¾ìœ¼ë ¤ëŠ” í•™ìƒì˜ ì´ë¦„ ë˜ëŠ” ìˆ˜ê°•ê³¼ëª©ì„ ì…ë ¥í•˜ì„¸ìš”(ì¢…ë£ŒëŠ” exit): ");
+        printf("\nÃ£À¸·Á´Â ÇĞ»ıÀÇ ÀÌ¸§ ¶Ç´Â ¼ö°­°ú¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä(Á¾·á´Â exit): ");
         gets(input);
 
         if(strcmp("exit", input) == 0)
@@ -92,7 +92,7 @@ void find_student(STUDENT *s) {
         sour = s;
         for(int i=0; i<array_size; i++) {
             if(strcmp(sour->class_name, input) == 0 || strcmp(sour->ID, input) == 0 || strcmp(sour->name, input) == 0) {
-                printf("%3dë²ˆ: ", i+1);
+                printf("%3d¹ø: ", i+1);
                 print_student(&s[i]);
                 is_checked = 1;
             }
@@ -100,15 +100,15 @@ void find_student(STUDENT *s) {
         }   
 
         if(is_checked == 0) 
-            printf("í•´ë‹¹ í•™ìƒ ì •ë³´ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");   
+            printf("ÇØ´ç ÇĞ»ı Á¤º¸¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");   
     }
 }
 
-/* print_presentation_list í•¨ìˆ˜ êµ¬í˜„ */
-// ë°˜ë“œì‹œ ë‹¤ìŒ ì½”ë“œ ì‚¬ìš©í•´ì„œ ì¶œë ¥í•˜ì„¸ìš”.
-// ê°€ì¥ ìœ—ì¤„: printf("<< ë°œí‘œë¦¬ìŠ¤íŠ¸ >>\n"); ì´ìš©í•˜ì—¬ ì¶œë ¥
-// í•™ìƒ ë²ˆí˜¸: printf("%3dë²ˆ: ",ë³€ìˆ˜); ì´ìš©í•˜ì—¬ ì¶œë ¥
-// í•™ìƒ ì •ë³´: print_student í•¨ìˆ˜ ì´ìš©í•˜ì—¬ ì¶œë ¥
+/* print_presentation_list ÇÔ¼ö ±¸Çö */
+// ¹İµå½Ã ´ÙÀ½ ÄÚµå »ç¿ëÇØ¼­ Ãâ·ÂÇÏ¼¼¿ä.
+// °¡Àå À­ÁÙ: printf("<< ¹ßÇ¥¸®½ºÆ® >>\n"); ÀÌ¿ëÇÏ¿© Ãâ·Â
+// ÇĞ»ı ¹øÈ£: printf("%3d¹ø: ",º¯¼ö); ÀÌ¿ëÇÏ¿© Ãâ·Â
+// ÇĞ»ı Á¤º¸: print_student ÇÔ¼ö ÀÌ¿ëÇÏ¿© Ãâ·Â
 /* -------------------------- */
 void print_presentation_list(STUDENT* s) {
     STUDENT list[array_size];
@@ -119,20 +119,23 @@ void print_presentation_list(STUDENT* s) {
     int is_exist = 0;
 
     while(1) {
+        if(present_num == MAX_PRESENTATION_LIST)
+            break;
+
         is_exist = 0;
         //printf("present_num : %d\n", present_num);
 
-        printf("\në°œí‘œë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€í•˜ë ¤ë©´ 1ë²ˆ, ì‚­ì œí•˜ë ¤ë©´ 2ë²ˆ, ì¢…ë£Œí•˜ë ¤ë©´ 3ë²ˆì„ ëˆ„ë¥´ì„¸ìš”: ");
+        printf("\n¹ßÇ¥¸®½ºÆ®¿¡ Ãß°¡ÇÏ·Á¸é 1¹ø, »èÁ¦ÇÏ·Á¸é 2¹ø, Á¾·áÇÏ·Á¸é 3¹øÀ» ´©¸£¼¼¿ä: ");
         scanf("%d", &input);
 
         if(input==3)
             break; 
         if(input==1) {
-            printf("ë°œí‘œë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€í•  í•™ìƒ ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”: ");
+            printf("¹ßÇ¥¸®½ºÆ®¿¡ Ãß°¡ÇÒ ÇĞ»ı ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä: ");
             scanf("%d", &num);
 
             if(num > 8 || num < 1) {
-                printf("ì˜ëª»ëœ ë²ˆí˜¸ì…ë‹ˆë‹¤.\n");  
+                printf("Àß¸øµÈ ¹øÈ£ÀÔ´Ï´Ù.\n");  
                 continue;
             } 
 
@@ -142,7 +145,7 @@ void print_presentation_list(STUDENT* s) {
             for(int i=0; i<present_num; i++) {
                 if(comapre(&list[i], &s[num-1]) == 1) {
                     is_exist = 1;
-                    printf("ì´ë¯¸ ë°œí‘œë¦¬ìŠ¤íŠ¸ì— ìˆëŠ” í•™ìƒì…ë‹ˆë‹¤.\n");
+                    printf("ÀÌ¹Ì ¹ßÇ¥¸®½ºÆ®¿¡ ÀÖ´Â ÇĞ»ıÀÔ´Ï´Ù.\n");
                     break;
                 }
             }
@@ -155,7 +158,7 @@ void print_presentation_list(STUDENT* s) {
             present_num += 1;
 
             // if(is_exist == 1) {
-            //     printf("ì´ë¯¸ ë°œí‘œë¦¬ìŠ¤íŠ¸ì— ìˆëŠ” í•™ìƒì…ë‹ˆë‹¤.\n");
+            //     printf("ÀÌ¹Ì ¹ßÇ¥¸®½ºÆ®¿¡ ÀÖ´Â ÇĞ»ıÀÔ´Ï´Ù.\n");
             // } else {
             //     list[size] = *(s+(num-1));
             //     present_num++;
@@ -163,11 +166,11 @@ void print_presentation_list(STUDENT* s) {
             
         }
         if(input==2) {
-            printf("ë°œí‘œë¦¬ìŠ¤íŠ¸ì—ì„œ ì‚­ì œí•  í•™ìƒ ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”: ");
+            printf("¹ßÇ¥¸®½ºÆ®¿¡¼­ »èÁ¦ÇÒ ÇĞ»ı ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä: ");
             scanf("%d", &num);
 
             if(num > 8 || num < 1) {
-                printf("ì˜ëª»ëœ ë²ˆí˜¸ì…ë‹ˆë‹¤.\n");  
+                printf("Àß¸øµÈ ¹øÈ£ÀÔ´Ï´Ù.\n");  
                 continue;
             } 
 
@@ -178,18 +181,18 @@ void print_presentation_list(STUDENT* s) {
                 delete(list, num-1);
                 present_num -= 1;
             } else {
-                printf("ì‚­ì œí•  í•™ìƒì´ ì—†ìŠµë‹ˆë‹¤.\n");
+                printf("»èÁ¦ÇÒ ÇĞ»ıÀÌ ¾ø½À´Ï´Ù.\n");
                 continue;
             }
         }
         is_exist = 0;
-        // ì¶œë ¥
-        printf("<< ë°œí‘œë¦¬ìŠ¤íŠ¸ >>\n");
+        // Ãâ·Â
+        printf("<< ¹ßÇ¥¸®½ºÆ® >>\n");
         for(int i=0; i<present_num; i++) {
-            printf("%3dë²ˆ: ", i+1);
+            printf("%3d¹ø: ", i+1);
             print_student(&list[i]);
         }
-        printf("ì´ ë°œí‘œëª… ìˆ˜: %dëª…\n", present_num);
+        printf("ÃÑ ¹ßÇ¥¸í ¼ö: %d¸í\n", present_num);
     }
 }
 
@@ -207,16 +210,16 @@ int main(void)
     };
     array_size = sizeof(array) / sizeof(STUDENT);
     print_student_list(array);
-    // #1-2 êµ¬í˜„ ì‹œ ë°˜ë“œì‹œ ë‹¤ìŒ ì½”ë“œ ì‚¬ìš©í•´ì„œ ì¶œë ¥í•˜ì„¸ìš”.
+    // #1-2 ±¸Çö ½Ã ¹İµå½Ã ´ÙÀ½ ÄÚµå »ç¿ëÇØ¼­ Ãâ·ÂÇÏ¼¼¿ä.
     find_student(array);
     
-    // #1-3 êµ¬í˜„ ì‹œ ë°˜ë“œì‹œ ë‹¤ìŒ ì½”ë“œ ì‚¬ìš©í•´ì„œ ì¶œë ¥í•˜ì„¸ìš”.
-    // printf("\në°œí‘œë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€í•˜ë ¤ë©´ 1ë²ˆ, ì‚­ì œí•˜ë ¤ë©´ 2ë²ˆ, ì¢…ë£Œí•˜ë ¤ë©´ 3ë²ˆì„ ëˆ„ë¥´ì„¸ìš”: ");
-    // printf("ë°œí‘œë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€í•  í•™ìƒ ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”: ");
-    // printf("ì´ë¯¸ ë°œí‘œë¦¬ìŠ¤íŠ¸ì— ìˆëŠ” í•™ìƒì…ë‹ˆë‹¤.\n");
-    // printf("ì˜ëª»ëœ ë²ˆí˜¸ì…ë‹ˆë‹¤.\n");   
-    // printf("ë°œí‘œë¦¬ìŠ¤íŠ¸ì—ì„œ ì‚­ì œí•  í•™ìƒ ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”: ");
-    // printf("ì‚­ì œí•  í•™ìƒì´ ì—†ìŠµë‹ˆë‹¤.\n");
+    // #1-3 ±¸Çö ½Ã ¹İµå½Ã ´ÙÀ½ ÄÚµå »ç¿ëÇØ¼­ Ãâ·ÂÇÏ¼¼¿ä.
+    // printf("\n¹ßÇ¥¸®½ºÆ®¿¡ Ãß°¡ÇÏ·Á¸é 1¹ø, »èÁ¦ÇÏ·Á¸é 2¹ø, Á¾·áÇÏ·Á¸é 3¹øÀ» ´©¸£¼¼¿ä: ");
+    // printf("¹ßÇ¥¸®½ºÆ®¿¡ Ãß°¡ÇÒ ÇĞ»ı ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä: ");
+    // printf("ÀÌ¹Ì ¹ßÇ¥¸®½ºÆ®¿¡ ÀÖ´Â ÇĞ»ıÀÔ´Ï´Ù.\n");
+    // printf("Àß¸øµÈ ¹øÈ£ÀÔ´Ï´Ù.\n");   
+    // printf("¹ßÇ¥¸®½ºÆ®¿¡¼­ »èÁ¦ÇÒ ÇĞ»ı ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä: ");
+    // printf("»èÁ¦ÇÒ ÇĞ»ıÀÌ ¾ø½À´Ï´Ù.\n");
     
     /* Put your answer */
     print_presentation_list(array);
