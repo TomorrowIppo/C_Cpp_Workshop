@@ -26,9 +26,9 @@ int comapre(STUDENT *s1, STUDENT *s2) {
     return 0;
 }
 
+// 발표 리스트에서 제거 함수
 void delete(STUDENT *s, int idx) {
     for(int i=idx; i<array_size; i++) {
-        // memcpy(&s[i], &s[i+1], sizeof(STUDENT));
         s[i] = s[i+1];
     }
 }
@@ -84,7 +84,7 @@ void find_student(STUDENT *s) {
     while(1) {
         is_checked = 0;
         printf("\n찾으려는 학생의 이름 또는 수강과목을 입력하세요(종료는 exit): ");
-        gets(input);
+        scanf("%s", input);
 
         if(strcmp("exit", input) == 0)
             break;
@@ -123,7 +123,6 @@ void print_presentation_list(STUDENT* s) {
             break;
 
         is_exist = 0;
-        //printf("present_num : %d\n", present_num);
 
         printf("\n발표리스트에 추가하려면 1번, 삭제하려면 2번, 종료하려면 3번을 누르세요: ");
         scanf("%d", &input);
@@ -139,9 +138,6 @@ void print_presentation_list(STUDENT* s) {
                 continue;
             } 
 
-            // printf("list[0], name : %s\n", list[0].name);
-            // printf("s[num-1], name : %s\n", s[num-1].name);
-
             for(int i=0; i<present_num; i++) {
                 if(comapre(&list[i], &s[num-1]) == 1) {
                     is_exist = 1;
@@ -156,14 +152,6 @@ void print_presentation_list(STUDENT* s) {
 
             list[present_num] = s[num-1];
             present_num += 1;
-
-            // if(is_exist == 1) {
-            //     printf("이미 발표리스트에 있는 학생입니다.\n");
-            // } else {
-            //     list[size] = *(s+(num-1));
-            //     present_num++;
-            // }
-            
         }
         if(input==2) {
             printf("발표리스트에서 삭제할 학생 번호를 입력하세요: ");
